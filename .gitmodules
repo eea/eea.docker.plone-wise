@@ -1,0 +1,6 @@
+[submodule "src/wise.content"]
+	path = src/wise.content
+	url = http://github.com/eea/wise.content.git
+[submodule "src/wise.theme"]
+	path = src/wise.theme
+	url = http://github.com/eea/wise.theme.git
