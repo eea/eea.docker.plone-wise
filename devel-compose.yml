@@ -30,11 +30,10 @@ services:
     - wise-downloads:/data/downloads
     - wise-plone-data:/data
     - ./src:/plone/instance/src/
+    - ./buildout.cfg:/plone/instance/buildout.cfg
     ports:
       - "8080"
-    # entrypoint: "bash"
     command: bash -c "tail -f /dev/null"
-    #   - sh
 
   memcached:
     image: memcached:1.4.35
