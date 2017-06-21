@@ -32,7 +32,7 @@ services:
     - ./src:/plone/instance/src/
     - ./buildout.cfg:/plone/instance/buildout.cfg
     ports:
-      - "8090:8080"
+      - "8190:8080"
     command: bash -c "tail -f /dev/null"
 
   memcached:
