@@ -1,4 +1,4 @@
-FROM eeacms/kgs:9.9
+FROM eeacms/kgs:11.2
 MAINTAINER "EEA: IDM2 S-Team"
 
 RUN buildout
