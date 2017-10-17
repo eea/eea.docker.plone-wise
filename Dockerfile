@@ -1,4 +1,4 @@
-FROM eeacms/kgs:12.0
+FROM eeacms/kgs:12.6
 MAINTAINER "EEA: IDM2 S-Team"
 
 ENV GRAYLOG_FACILITY=wise-plone
