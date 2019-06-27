@@ -1,22 +1,8 @@
 version: "2"
 services:
-  # haproxy:
-    # image: eeacms/haproxy:1.8-1.2
-    # ports:
-    # - 2080:8080
-    # - 1936:1936
-    # depends_on:
-    # - plone
-    # environment:
-    #   FRONTEND_PORT: "8080"
-    #   BACKENDS_PORT: "8080"
-    #   BACKENDS: "plone"
-    #   DNS_ENABLED: "True"
-    #   TZ: "Europe/Copenhagen"
 
-  shell:
-    # image: eeacms/plonesaas:5.1.5-62
-    build: ./plone
+  plone:
+    image: eeacms/plonesaas:5.1.5-62
     depends_on:
       - memcached
       - postfix
@@ -24,46 +10,18 @@ services:
     environment:
       ZOPE_MODE: "zeo_client"
       TZ: "Europe/Copenhagen"
-    env_file:
-      - env.secret
-    command: bash -c "tail -f /dev/null"
-    tty: true
-    stdin_open: true
-    ports:
-    - 3080:8080
-    volumes:
-    - ./plone/site.cfg:/plone/instance/site.cfg
-    - ./plone/src/:/plone/instance/src/
-
-  # plone:
-  #   image: eeacms/plonesaas:5.1.5-27
-  #   depends_on:
-  #     - memcached
-  #     - postfix
-  #     - zeo
-  #   environment:
-  #     ZOPE_MODE: "zeo_client"
-  #     TZ: "Europe/Copenhagen"
-  #   volumes:
-  #   - ./custom.cfg:/plone/instance/custom.cfg
-  #   - ./src/:/plone/instance/src/
 
   zeo:
-    image: eeacms/plonesaas:5.1.5-45
-    # image: eeadockerplonesaas_shell:latest
+    image: eeacms/plonesaas:5.1.5-62
     depends_on:
     - memcached
     - postfix
     environment:
       ZOPE_MODE: "zeo"
       TZ: "Europe/Copenhagen"
-    # command: bash -c "tail -f /dev/null"
-    volumes:
-      - ./plone/site.cfg:/plone/instance/site.cfg
-      - ./data:/data
 
   async:
-    image: eeacms/plonesaas:5.1.5-45
+    image: eeacms/plonesaas:5.1.5-62
     depends_on:
     - memcached
     - postfix
@@ -96,17 +54,6 @@ services:
       MSSQL_PID: Enterprise
     volumes:
       - msdb:/var/opt/mssql/data/
-      - ./db:/shared-db/
-
-  msdb-shell:
-    image: microsoft/mssql-server-linux:latest
-    environment:
-      ACCEPT_EULA: Y
-      SA_PASSWORD: bla3311!
-      MSSQL_PID: Enterprise
-    volumes:
-      - msdb:/shared/
-    # entrypoint: sh -c "tail -f /dev/null"
 
 volumes:
   data:
