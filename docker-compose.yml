@@ -2,7 +2,7 @@ version: "2"
 services:
 
   plone:
-    image: eeacms/plonesaas:5.1.5-62
+    image: eeacms/plonesaas:5.1.5-67
     depends_on:
       - memcached
       - postfix
@@ -12,7 +12,7 @@ services:
       TZ: "Europe/Copenhagen"
 
   zeo:
-    image: eeacms/plonesaas:5.1.5-62
+    image: eeacms/plonesaas:5.1.5-67
     depends_on:
     - memcached
     - postfix
@@ -21,7 +21,7 @@ services:
       TZ: "Europe/Copenhagen"
 
   async:
-    image: eeacms/plonesaas:5.1.5-62
+    image: eeacms/plonesaas:5.1.5-67
     depends_on:
     - memcached
     - postfix
