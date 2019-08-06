@@ -11,4 +11,3 @@ products/*
 src/*
 env.secret
 db/*
-plone/src/*
