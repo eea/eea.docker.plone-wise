@@ -1,0 +1,57 @@
+version: "2"
+services:
+
+  shell:
+    # image: eeacms/plonesaas:5.1.5-62
+    build: ./plone
+    depends_on:
+      - memcached
+      - postfix
+      - zeo
+    environment:
+      ZOPE_MODE: "zeo_client"
+      TZ: "Europe/Copenhagen"
+    env_file:
+      - env.secret
+    command: bash -c "tail -f /dev/null"
+    tty: true
+    stdin_open: true
+    ports:
+    - 3080:8080
+    volumes:
+    - ./plone/site.cfg:/plone/instance/site.cfg
+    - ./plone/src/:/plone/instance/src/
+
+  zeo:
+    # command: bash -c "tail -f /dev/null"
+    volumes:
+      - ./data:/data
+        #
+  #added msdb and msdb-shell from WISE.
+  msdb:
+    image: microsoft/mssql-server-linux:latest
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: bla3311!
+      MSSQL_PID: Enterprise
+    volumes:
+      - msdb:/var/opt/mssql/data/
+      - ./db:/shared-db/
+
+  msdb-shell:
+    image: microsoft/mssql-server-linux:latest
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: bla3311!
+      MSSQL_PID: Enterprise
+    volumes:
+      - msdb:/shared/
+    # entrypoint: sh -c "tail -f /dev/null"
+
+volumes:
+  data:
+    driver: local
+  msdb:
+    driver: local

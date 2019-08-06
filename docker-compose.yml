@@ -1,0 +1,62 @@
+version: "2"
+services:
+
+  plone:
+    image: eeacms/plonesaas:5.1.5-67
+    depends_on:
+      - memcached
+      - postfix
+      - zeo
+    environment:
+      ZOPE_MODE: "zeo_client"
+      TZ: "Europe/Copenhagen"
+
+  zeo:
+    image: eeacms/plonesaas:5.1.5-67
+    depends_on:
+    - memcached
+    - postfix
+    environment:
+      ZOPE_MODE: "zeo"
+      TZ: "Europe/Copenhagen"
+
+  async:
+    image: eeacms/plonesaas:5.1.5-67
+    depends_on:
+    - memcached
+    - postfix
+    environment:
+      ZOPE_MODE: "zeo_async"
+      TZ: "Europe/Copenhagen"
+
+  memcached:
+    image: memcached:1.5.12
+    command:
+    - "-m"
+    - "2048"
+    environment:
+      TZ: "Europe/Bucharest"
+
+  postfix:
+    image: eeacms/postfix:2.10-3.3
+    environment:
+      MTP_HOST: "avoinea.com"
+      TZ: "Europe/Bucharest"
+
+  #added msdb and msdb-shell from WISE.
+  msdb:
+    image: microsoft/mssql-server-linux:latest
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: bla3311!
+      MSSQL_PID: Enterprise
+    volumes:
+      - msdb:/var/opt/mssql/data/
+
+volumes:
+  data:
+    driver: local
+  msdb:
+    driver: local

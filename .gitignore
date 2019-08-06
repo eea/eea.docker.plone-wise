@@ -1,4 +1,14 @@
 *.pyc
-.secret
-devel/src/*
+*.pyo
+.eggs
+*.egg-info
+*.swp
+dist/*
+data/*
+products/*
+*node_modules*
 *~
+src/*
+env.secret
+db/*
+plone/src/*
