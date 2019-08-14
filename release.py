@@ -31,9 +31,9 @@ def release():
     with open('buildout.cfg', 'w') as f:
         f.write('\n'.join(out))
 
-    subprocess.call(['git', 'tag', '-a', version, '-m',
+    subprocess.call(['git', 'tag', '-a', "v{}".format(version), '-m',
                      'Release {}'.format(version)])
-    subprocess.call(['git' 'push', '--tags'])
+    subprocess.call(['git', 'push', '--tags'])
 
 
 if __name__ == "__main__":
