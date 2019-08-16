@@ -1,3 +1,3 @@
 .PHONY: release
 release:
-	exec python2 ./release.py
+	sh -c "python2 ./release.py"
