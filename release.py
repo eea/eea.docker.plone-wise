@@ -31,6 +31,7 @@ def release():
     with open('buildout.cfg', 'w') as f:
         f.write('\n'.join(out))
 
+    subprocess.call(['git', 'commit', 'buildout.cfg', '-m', '"Bump version"'])
     subprocess.call(['git', 'tag', '-a', "v{}".format(version), '-m',
                      'Release {}'.format(version)])
     subprocess.call(['git', 'push', '--tags'])
