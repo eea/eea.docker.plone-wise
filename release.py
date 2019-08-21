@@ -36,6 +36,7 @@ def release():
     subprocess.call(['git', 'tag', '-a', "v{}".format(version), '-m',
                      'Release {}'.format(version)])
     subprocess.call(['git', 'push', '--tags'])
+    subprocess.call(['git', 'push'])
 
 
 if __name__ == "__main__":
