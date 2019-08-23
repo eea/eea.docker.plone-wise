@@ -2,7 +2,7 @@ version: "2"
 services:
 
   plone:
-    image: eeacms/plonesaas:5.1.5-67
+    image: tiberiuichim/wise-plone5:5.2-0.1
     depends_on:
       - memcached
       - postfix
@@ -12,22 +12,23 @@ services:
       TZ: "Europe/Copenhagen"
 
   zeo:
-    image: eeacms/plonesaas:5.1.5-67
-    depends_on:
-    - memcached
-    - postfix
+    image: plone:5.2-python2
+    labels:
+      io.rancher.scheduler.affinity:host_label_ne: reserved=yes
     environment:
+      TZ: "Europe/Copenhagen"
       ZOPE_MODE: "zeo"
-      TZ: "Europe/Copenhagen"
+    command:
+      - zeo
 
-  async:
-    image: eeacms/plonesaas:5.1.5-67
-    depends_on:
-    - memcached
-    - postfix
-    environment:
-      ZOPE_MODE: "zeo_async"
-      TZ: "Europe/Copenhagen"
+  # async:
+  #   image: eeacms/plonesaas:5.1.5-67
+  #   depends_on:
+  #   - memcached
+  #   - postfix
+  #   environment:
+  #     ZOPE_MODE: "zeo_async"
+  #     TZ: "Europe/Copenhagen"
 
   memcached:
     image: memcached:1.5.12
@@ -57,6 +58,6 @@ services:
 
 volumes:
   data:
-    driver: local
+    driver: rancher-nfs
   msdb:
-    driver: local
+    driver: rancher-nfs

@@ -11,3 +11,5 @@ products/*
 src/*
 env.secret
 db/*
+docker-compose.override.yml
+plone/src/*
