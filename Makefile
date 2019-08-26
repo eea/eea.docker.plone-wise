@@ -1,9 +1,9 @@
 .DEFAULT_GOAL := help
 
-DOCKER = "docker-compose.override.yml"
+OVERRIDE = "docker-compose.override.yml"
 
-$(DOCKER):
-	cp docker-compose.override.example.yml $(DOCKER) && $(EDITOR) $(DOCKER)
+$(OVERRIDE):
+	cp docker-compose.override.example.yml $(OVERRIDE) && $(EDITOR) $(OVERRIDE)
 
 .PHONY: bootstrap
 bootstrap: setup-data setup-plone
@@ -17,7 +17,7 @@ setup-data:		## Setup the datastorage for Zeo
 	sudo chown -R 500 data
 
 .PHONY: setup-plone
-setup-plone:	$(DOCKER)		## Setup products folder and Plone user
+setup-plone:	$(OVERRIDE)		## Setup products folder and Plone user
 	docker-compose up -d
 	docker-compose exec plone bin/develop rb
 	docker-compose exec plone bin/plonectl adduser admin admin
@@ -58,4 +58,3 @@ help:		## Show this help.
 # 	git submodule init
 # 	git submodule update
 # 	sh -c "cd frontend && git submodule init && git submodule update"
-
