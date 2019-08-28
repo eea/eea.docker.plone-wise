@@ -7,12 +7,13 @@ VERSIONFILE = "docker-image-version.txt"
 all: build push
 
 build:
-	@echo "Bumping version..."
-	python3 version_bump.py
-	DOCKER_VERSION = $(shell cat ${VERSIONFILE})
-	@echo "Building new docker image..."
-	docker build . -t $(IMAGE):${DOCKER_VERSION}
-	@echo "Image built."
+	set -e;	\
+		echo "Bumping version...";	\
+		python ./version_bump.py $(VERSIONILE);	\
+		DOCKER_VERSION=`cat $(VERSIONFILE)`;	\
+		echo "Building new docker image... $(DOCKER_VERSION)";	\
+		docker build . -t $(IMAGE):$(DOCKER_VERSION);	\
+		echo "Image built."
 
 push:
 	DOCKER_VERSION = $(shell cat ${VERSIONFILE})
