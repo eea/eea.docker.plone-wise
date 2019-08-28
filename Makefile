@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 
-OVERRIDE = "docker-compose.override.yml"
+OVERRIDE := "docker-compose.override.yml"
 
 $(OVERRIDE):
 	cp docker-compose.override.example.yml $(OVERRIDE) && $(EDITOR) $(OVERRIDE)
@@ -17,10 +17,11 @@ setup-data:		## Setup the datastorage for Zeo
 	sudo chown -R 500 data
 
 .PHONY: setup-plone
-setup-plone:	$(OVERRIDE)		## Setup products folder and Plone user
+setup-plone:		## Setup products folder and Plone user
 	docker-compose up -d
-	docker-compose exec plone bin/develop rb
-	docker-compose exec plone bin/plonectl adduser admin admin
+	sudo chown -R 500 src/
+	docker-compose exec plone gosu plone bin/develop rb
+	docker-compose exec plone gosu plone bin/plonectl adduser admin admin
 	sudo chown -R `whoami` src/
 
 .PHONY: start-plone
