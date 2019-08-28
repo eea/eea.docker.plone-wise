@@ -16,9 +16,9 @@ build:
 		echo "Image built."
 
 push:
-	DOCKER_VERSION = $(shell cat ${VERSIONFILE})
-	docker push $(IMAGE):${DOCKER_VERSION}
-	docker tag $(IMAGE):${DOCKER_VERSION} $(IMAGE):latest
+	$(eval DOCKER_VERSION := `cat $(VERSIONFILE)`)
+	docker push $(IMAGE):$(DOCKER_VERSION);	\
+	docker tag $(IMAGE):$(DOCKER_VERSION) $(IMAGE):latest;	\
 	docker push $(IMAGE):latest
 
 .PHONY: all build clean
