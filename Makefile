@@ -38,13 +38,13 @@ start-shell:		## Start the shell
 build-plone:		## Build the Plone docker image
 	docker-compose stop plone
 	docker-compose rm -f plone
-	docker-compose build plone
+	docker-compose build --no-cache plone
 	docker-compose up -d plone
 
 .PHONY: plone-shell
 plone-shell:		## Run a shell on the Plone docker image
-	docker-compose up -d plone
-	docker-compose exec plone bash
+	docker-compose up -d shell
+	docker-compose exec shell bash
 
 .PHONY: release-plone
 release-plone:		## Make a Docker Hub release for the Plone backend
