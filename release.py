@@ -4,8 +4,6 @@ import shutil
 import subprocess
 from decimal import Decimal
 
-# import os.path
-
 
 def release():
     with open('buildout.cfg', 'r') as f:
