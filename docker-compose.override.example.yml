@@ -15,14 +15,14 @@ services:
       TZ: "Europe/Copenhagen"
     env_file:
       - env.secret
-    command: bash -c "tail -f /dev/null"
+    entrypoint: bash -c "tail -f /dev/null"
     tty: true
     stdin_open: true
     ports:
     - 3080:8080
     volumes:
     - ./plone/site.cfg:/plone/instance/site.cfg
-    - ./plone/src/:/plone/instance/src/
+    - ./src/:/plone/instance/src/
 
   zeo:
     # command: bash -c "tail -f /dev/null"
@@ -59,19 +59,18 @@ services:
       - "-m"
       - "2048"
 
-  msdb:
-    image: microsoft/mssql-server-linux:latest
-    environment:
-      ACCEPT_EULA: Y
-      SA_PASSWORD: bla3311!
-      MSSQL_PID: Enterprise
-    volumes:
-      - msdb:/var/opt/mssql/data/
-      - ./db:/shared-db/
+  # msdb:
+  #   image: microsoft/mssql-server-linux:latest
+  #   environment:
+  #     ACCEPT_EULA: Y
+  #     SA_PASSWORD: bla3311!
+  #     MSSQL_PID: Enterprise
+  #   volumes:
+  #     - msdb:/var/opt/mssql/data/
+  #     - ./db:/shared-db/
 
 volumes:
   data:
     driver: local
   msdb:
     driver: local
-

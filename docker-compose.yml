@@ -45,19 +45,19 @@ services:
       TZ: "Europe/Bucharest"
 
   #added msdb and msdb-shell from WISE.
-  msdb:
-    image: microsoft/mssql-server-linux:latest
-    ports:
-      - "1433:1433"
-    environment:
-      ACCEPT_EULA: Y
-      SA_PASSWORD: bla3311!
-      MSSQL_PID: Enterprise
-    volumes:
-      - msdb:/var/opt/mssql/data/
+  # msdb:
+  #   image: microsoft/mssql-server-linux:latest
+  #   ports:
+  #     - "1433:1433"
+  #   environment:
+  #     ACCEPT_EULA: Y
+  #     SA_PASSWORD: bla3311!
+  #     MSSQL_PID: Enterprise
+  #   volumes:
+  #     - msdb:/var/opt/mssql/data/
 
 volumes:
   data:
     driver: rancher-nfs
-  msdb:
-    driver: rancher-nfs
+  # msdb:
+  #   driver: rancher-nfs
