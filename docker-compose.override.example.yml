@@ -12,6 +12,7 @@ services:
       - zeo
     environment:
       ZOPE_MODE: "zeo_client"
+      ZEO_ADDRESS: "zeo:8080"
       TZ: "Europe/Copenhagen"
     env_file:
       - env.secret
