@@ -50,6 +50,9 @@ plone-shell:		## Run a shell on the Plone docker image
 release-plone:		## Make a Docker Hub release for the Plone backend
 	sh -c "cd plone; make all"
 
+#TODO, for release plone: bump version for plone in docker-compose.yml, then:
+# docker-compose build plone; docker-compose push plone
+
 .PHONY: help
 help:		## Show this help.
 	@echo -e "$$(grep -hE '^\S+:.*##' $(MAKEFILE_LIST) | sed -e 's/:.*##\s*/:/' -e 's/^\(.\+\):\(.*\)/\\x1b[36m\1\\x1b[m:\2/' | column -c2 -t -s :)"
