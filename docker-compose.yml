@@ -2,7 +2,7 @@ version: "2"
 services:
 
   plone:
-    image: tiberiuichim/wise-plone5:5.2-0.13
+    image: tiberiuichim/wise-plone5:5.2-0.14
     depends_on:
       - memcached
       - postfix
