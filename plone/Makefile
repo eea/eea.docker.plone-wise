@@ -1,25 +1,32 @@
-# convenience makefile to boostrap & run buildout
-version = 2.7
-IMAGE = "tiberiuichim/wise-plone5"
-VERSIONFILE = "docker-image-version.txt"
-.DEFAULT_GOAL := build
+image-name-split = $(firstword $(subst :, ,$1))
 
-all: bump build push
+SHELL=/bin/bash
+DOCKERIMAGE_FILE="docker-image.txt"
+NAME := $(call image-name-split,$(shell cat $(DOCKERIMAGE_FILE)), 1)
+IMAGE := $(shell cat $(DOCKERIMAGE_FILE))
 
+.DEFAULT_GOAL := help
+
+.PHONY: all
+all: bump build-image push		## (Host side) release a new version of frontend docker image
+
+.PHONY: bump
 bump:
 	echo "Bumping version...";
-	python ./version_bump.py $(VERSIONFILE);
+	python ./../scripts/version_bump.py $(DOCKERIMAGE_FILE);
 
-build:
-	$(eval DOCKER_VERSION=$(shell cat $(VERSIONFILE)))
-	@echo "Building new docker image: $(DOCKER_VERSION)";
-	docker build . -t "$(IMAGE):$(DOCKER_VERSION)";
+.PHONY: build-image
+build-image:
+	@echo "Building new docker image: $(IMAGE)";
+	docker build . -t "$(IMAGE)";
 	@echo "Image built."
 
+.PHONY: push
 push:
-	$(eval DOCKER_VERSION=$(shell cat $(VERSIONFILE)))
-	docker push $(IMAGE):$(DOCKER_VERSION)
-	docker tag $(IMAGE):$(DOCKER_VERSION) $(IMAGE):latest
-	docker push $(IMAGE):latest
+	docker push $(IMAGE)
+	docker tag $(IMAGE) $(NAME):latest
+	docker push $(NAME):latest
 
-.PHONY: all build clean
+.PHONY: help
+help:		## Show this help.
+	@echo -e "$$(grep -hE '^\S+:.*##' $(MAKEFILE_LIST) | sed -e 's/:.*##\s*/:/' -e 's/^\(.\+\):\(.*\)/\\x1b[36m\1\\x1b[m:\2/' | column -c2 -t -s :)"
