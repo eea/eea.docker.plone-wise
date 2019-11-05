@@ -10,11 +10,12 @@ services:
       - zeo
       - memcached
     ports:
-      - "${BACKEND_PORT:-8085}"
+      - "${BACKEND_PORT:-8085}:8080"
     environment:
       TZ: "Europe/Copenhagen"
       ZEO_ADDRESS: "zeo:8080"
       ZOPE_MODE: "zeo_client"
+    entrypoint: sh -c "tail -f /dev/null"
 
   zeo:
     image: plone:5.2-python2
