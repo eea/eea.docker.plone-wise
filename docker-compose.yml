@@ -10,7 +10,7 @@ services:
       - zeo
       - memcached
     ports:
-      - "${BACKEND_PORT:8085}:8080"
+      - "${BACKEND_PORT:-8085}"
     environment:
       TZ: "Europe/Copenhagen"
       ZEO_ADDRESS: "zeo:8080"
