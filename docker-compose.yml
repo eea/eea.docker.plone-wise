@@ -1,15 +1,20 @@
-version: "2"
+version: "2.1"
+
 services:
 
   plone:
-    image: tiberiuichim/wise-plone5:5.2-0.18
+    image: '${BACKEND_IMAGE:?no such variable}'
+    labels:
+      io.rancher.scheduler.affinity:host_label_ne: reserved=yes
     depends_on:
-      - memcached
-      - postfix
       - zeo
+      - memcached
+    ports:
+      - "8085:8080"
     environment:
-      ZOPE_MODE: "zeo_client"
       TZ: "Europe/Copenhagen"
+      ZEO_ADDRESS: "zeo:8080"
+      ZOPE_MODE: "zeo_client"
 
   zeo:
     image: plone:5.2-python2
@@ -21,43 +26,15 @@ services:
     command:
       - zeo
 
-  # async:
-  #   image: eeacms/plonesaas:5.1.5-67
-  #   depends_on:
-  #   - memcached
-  #   - postfix
-  #   environment:
-  #     ZOPE_MODE: "zeo_async"
-  #     TZ: "Europe/Copenhagen"
-
   memcached:
-    image: memcached:1.5.12
+    image: memcached:1.4.35
+    labels:
+      io.rancher.scheduler.affinity:host_label_ne: reserved=yes
+    environment:
+      TZ: "Europe/Copenhagen"
     command:
-    - "-m"
-    - "2048"
-    environment:
-      TZ: "Europe/Bucharest"
+      - "-m"
+      - "2048"
 
-  postfix:
-    image: eeacms/postfix:2.10-3.3
-    environment:
-      MTP_HOST: "avoinea.com"
-      TZ: "Europe/Bucharest"
-
-  #added msdb and msdb-shell from WISE.
-  # msdb:
-  #   image: microsoft/mssql-server-linux:latest
-  #   ports:
-  #     - "1433:1433"
-  #   environment:
-  #     ACCEPT_EULA: Y
-  #     SA_PASSWORD: bla3311!
-  #     MSSQL_PID: Enterprise
-  #   volumes:
-  #     - msdb:/var/opt/mssql/data/
-
-volumes:
-  data:
-    driver: rancher-nfs
-  # msdb:
-  #   driver: rancher-nfs
+# backend demo-forests-p5-plone
+# http-request set-path /VirtualHostBase/https/demo-forests-p5.eea.europa.eu:443/fise/VirtualHostRoot/_vh_api/%[path,regsub(\/api,,g)]
