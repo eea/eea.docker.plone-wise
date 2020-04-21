@@ -1,7 +1,1 @@
-<<<<<<< HEAD
 tiberiuichim/wise-plone5:5.2-0.53
-||||||| 0cfe692
-tiberiuichim/wise-plone5:5.2-0.51
-=======
-tiberiuichim/wise-plone5:5.2-0.54
->>>>>>> 4c96b271ad8d6de60d9d009d56184d44bc0785dc
