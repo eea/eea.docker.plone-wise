@@ -1,1 +1,1 @@
-tiberiuichim/wise-plone5:5.2-1.08
+tiberiuichim/wise-plone5:5.2-1.12
