@@ -1,4 +1,4 @@
-FROM plone:5.2-python2
+FROM plone:5.2.1-python2
 
 LABEL maintainer="Tiberiu Ichim <tiberiu.ichim@gmail.com>"
 
@@ -7,6 +7,7 @@ RUN buildDeps="build-essential libldap2-dev libsasl2-dev libssl-dev git vim" \
                && apt-get install -y --no-install-recommends $buildDeps
 
 COPY docker-image.txt /
+COPY docker-entrypoint.sh /
 COPY site.cfg /plone/instance/
 
 RUN gosu plone buildout -c site.cfg
