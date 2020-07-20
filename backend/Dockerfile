@@ -14,4 +14,5 @@ RUN gosu plone buildout -c site.cfg
 RUN gosu plone /docker-initialize.py
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
+
 CMD ["start"]
