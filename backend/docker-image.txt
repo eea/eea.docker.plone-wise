@@ -1,1 +1,1 @@
-eeacms/wise-plone5:5.2-1.30
+eeacms/wise-plone5:5.2-1.31
