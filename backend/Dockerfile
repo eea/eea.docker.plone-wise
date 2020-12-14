@@ -2,7 +2,7 @@ FROM plone:5.2.1-python2
 
 LABEL maintainer="Tiberiu Ichim <tiberiu.ichim@gmail.com>"
 
-RUN buildDeps="build-essential libldap2-dev libsasl2-dev libssl-dev git vim" \
+RUN buildDeps="build-essential libldap2-dev libsasl2-dev libssl-dev git vim libssl1.0-dev" \
                && apt-get update \
                && apt-get install -y --no-install-recommends $buildDeps
 
