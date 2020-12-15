@@ -2,9 +2,10 @@ FROM plone:5.2.1-python2
 
 LABEL maintainer="Tiberiu Ichim <tiberiu.ichim@gmail.com>"
 
-RUN buildDeps="build-essential libldap2-dev libsasl2-dev libssl-dev git vim libssl1.0-dev" \
+RUN buildDeps="build-essential libldap2-dev libsasl2-dev libssl-dev git vim" \
                && apt-get update \
-               && apt-get install -y --no-install-recommends $buildDeps
+               && apt-get install -y --no-install-recommends $buildDeps \
+               && apt-get install -y libssl1.0-dev
 
 COPY docker-image.txt /
 COPY docker-entrypoint.sh /
