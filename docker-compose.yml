@@ -15,6 +15,7 @@ services:
       TZ: "Europe/Copenhagen"
       ZEO_ADDRESS: "zeo:8080"
       ZOPE_MODE: "zeo_client"
+      MEMCACHE_SERVER: memcached:11211
     entrypoint: sh -c "tail -f /dev/null"
 
   zeo:
@@ -34,8 +35,11 @@ services:
     environment:
       TZ: "Europe/Copenhagen"
     command:
-      - "-m"
+      - -m
       - "2048"
+      - -I
+      - '20m'
+
 
 # backend demo-forests-p5-plone
 # http-request set-path /VirtualHostBase/https/demo-forests-p5.eea.europa.eu:443/fise/VirtualHostRoot/_vh_api/%[path,regsub(\/api,,g)]
