@@ -151,9 +151,11 @@ release-frontend:		## Make a Docker Hub release for frontend
 release-backend:		## Make a Docker Hub release for the Plone backend
 	set -x; \
 		cd $(BACKEND); \
-		make release; \
+		make bump; \
 		cd ..; \
-		scripts/add_version_to_env.py --file ${BACKEND}/docker-image.txt --name BACKEND_IMAGE
+		scripts/add_version_to_env.py --file ${BACKEND}/docker-image.txt --name BACKEND_IMAGE; \
+		cd $(BACKEND); \
+		make gitpush
 
 .PHONY: build-backend
 build-backend:		## Just (re)build the backend image
