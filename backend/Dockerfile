@@ -2,6 +2,8 @@ FROM plone:5.2.1-python2
 
 LABEL maintainer="Tiberiu Ichim <tiberiu.ichim@gmail.com>"
 
+ENV GRAYLOG_FACILITY=wise-plone
+
 RUN buildDeps="build-essential libldap2-dev libsasl2-dev libssl-dev git vim xz-utils curl" \
                && apt-get update \
                && apt-get install -y --no-install-recommends $buildDeps \
